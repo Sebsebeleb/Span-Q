@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class SimulationButton : MonoBehaviour
 {
 
-    private bool isSimulating;
+    private bool isSimulating = false;
     private Text buttonText;
 
     private TimelineManager manager;
@@ -25,10 +25,10 @@ public class SimulationButton : MonoBehaviour
 
     public void Toggled()
     {
+        isSimulating = !isSimulating;
 
         buttonText.text = isSimulating ? "Stop Simulation" : "Start Simulation";
 
         manager.SetSimulating(isSimulating);
-        isSimulating = !isSimulating;
     }
 }

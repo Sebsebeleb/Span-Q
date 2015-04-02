@@ -62,6 +62,31 @@ public static class TimeLine
 
         TimemanipulatorEvents.Add(new KeyValuePair<float, TimeManipulator>(manipulator.EffectTime, manipulator));
     }
+
+    /// <summary>
+    /// Remove a manipulator from the timeline. Used for stuff like one-off manipulators.
+    /// </summary>
+    /// <param name="manipulatorToRemove">The manipulator trigger to remove</param>
+    public static void RemoveTimelineManipulator(TimeManipulator manipulatorToRemove)
+    {
+        KeyValuePair<float, TimeManipulator> toRemove = new KeyValuePair<float, TimeManipulator>();
+        bool found = false;
+        // bad and lazy way
+        foreach (KeyValuePair<float, TimeManipulator> pair in TimemanipulatorEvents)
+        {
+            if (pair.Value == manipulatorToRemove)
+            {
+                toRemove = pair;
+                found = true;
+                break;
+            }
+        }
+
+        if (found)
+        {
+            TimemanipulatorEvents.Remove(toRemove);
+        }
+    }
     /// <summary>
     /// Updates the advancing of time on timeline
     /// </summary>
