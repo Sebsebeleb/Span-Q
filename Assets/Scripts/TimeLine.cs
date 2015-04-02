@@ -26,6 +26,13 @@ public static class TimeLine
         _currentCurrentTime = StartTime;
     }
 
+    // TODO: Call me maybe
+    public static void StopPlayback()
+    {
+        TimelineEvents.Clear();
+        TimemanipulatorEvents.Clear();
+    }
+
     public static void SimulateTime()
     {
 
@@ -38,7 +45,7 @@ public static class TimeLine
                 throw new Exception("Error in manipulation of time. More time was spent than it was given to spend");
             }
 
-            float timePassed = UpdateToNextEvent(deltaTime);
+            float timePassed = UpdateToNextManipulator(deltaTime);
             UpdateTime(timePassed);
             deltaTime -= timePassed;
 
@@ -52,7 +59,7 @@ public static class TimeLine
 
     public static void AddTimelineManipulator(TimeManipulator manipulator)
     {
-        
+
         TimemanipulatorEvents.Add(new KeyValuePair<float, TimeManipulator>(manipulator.EffectTime, manipulator));
     }
     /// <summary>
@@ -72,10 +79,12 @@ public static class TimeLine
     /// <param name="timePassed"></param>
     private static void CheckAndFireEvents(float timePassed)
     {
-        foreach (KeyValuePair<float, TimelineEventTrigger> pair in TimelineEvents) {
+        foreach (KeyValuePair<float, TimelineEventTrigger> pair in TimelineEvents)
+        {
             float eventTime = pair.Key;
 
-            if (passedThisFrame(eventTime, timePassed)) {
+            if (passedThisFrame(eventTime, timePassed))
+            {
                 pair.Value.Trigger();
             }
         }
@@ -87,7 +96,7 @@ public static class TimeLine
     /// </summary>
     /// <param name="deltaTime"></param>
     /// <returns>The amount of time that passed untill manipulator was reached</returns>
-    private static float UpdateToNextEvent(float deltaTime)
+    private static float UpdateToNextManipulator(float deltaTime)
     {
         KeyValuePair<float, TimeManipulator> earliestManipulator = new KeyValuePair<float, TimeManipulator>();
         bool found = false;
@@ -112,9 +121,12 @@ public static class TimeLine
 
         float manipulatorTime = earliestManipulator.Key;
 
+        // We need to return the amount of time passed
+        float oldCurrentTime = CurrentTime;
+
         TriggerManipulator(earliestManipulator.Value);
 
-        return deltaTime - (manipulatorTime - CurrentTime);
+        return deltaTime - (manipulatorTime - oldCurrentTime);
     }
 
     private static void TriggerManipulator(TimeManipulator timeManipulator)

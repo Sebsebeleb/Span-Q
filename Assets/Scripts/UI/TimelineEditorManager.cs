@@ -49,7 +49,7 @@ public class TimelineEditorManager : MonoBehaviour
     {
         Vector3[] rectWorld = new Vector3[4];
         editAreaRect.GetWorldCorners(rectWorld);
-        Rect worldRect = getWorldRect(); 
+        Rect worldRect = getWorldRect();
         return worldRect.Contains(position);
     }
 
@@ -70,7 +70,7 @@ public class TimelineEditorManager : MonoBehaviour
 
         // The position relative from start of timeline
         Vector3 relativePosition = eventPosition;
-        relativePosition.x -= worldRect.left;
+        relativePosition.x -= worldRect.xMin;
 
         // The actual size of the edit rect
         float xSize = worldRect.xMax - worldRect.xMin;
@@ -81,7 +81,7 @@ public class TimelineEditorManager : MonoBehaviour
 
         // transform size of each snap
         float sizeOfEachSnap = xSize / NumberOfSnapPoints;
-        eventObject.transform.position = new Vector3((snap * sizeOfEachSnap) + worldRect.left, relativePosition.y, relativePosition.z);
+        eventObject.transform.position = new Vector3((snap * sizeOfEachSnap) + worldRect.xMin, relativePosition.y, relativePosition.z);
 
         // Call snap event callback
         float snaptime = snap * TimePerSnap;

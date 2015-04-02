@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(DragTest))]
 /// <summary>
@@ -15,7 +11,6 @@ public abstract class TimeManipulator : MonoBehaviour
 
     private void Start()
     {
-        TimeLine.AddTimelineManipulator(this);
         drag = GetComponent<DragTest>();
     }
 
@@ -24,8 +19,8 @@ public abstract class TimeManipulator : MonoBehaviour
     /// TODO: should be called when simulation starts
     public void OnSimulationStart()
     {
-        Debug.Log("hello");
-        if (drag.IsSnapped) {
+        if (drag.IsSnapped)
+        {
             TimeLine.AddTimelineManipulator(this);
         }
     }

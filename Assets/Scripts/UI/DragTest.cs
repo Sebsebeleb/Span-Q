@@ -8,12 +8,15 @@ public class DragTest : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public float SnappedAt;
 
     private TimelineEditorManager timelineManager;
+    private TimeManipulator manipulator;
 
     public void Start()
     {
+        manipulator = GetComponent<TimeManipulator>();
         timelineManager = GameObject.FindWithTag("TimelineManager").GetComponent<TimelineEditorManager>();
     }
 
+    // TODO: Disallow dragging while simulation is playing
     public void DragPosition(Vector3 dragPosition)
     {
         // We set it first because the snapping uses its position, and we need to override it in case of snap
@@ -23,6 +26,7 @@ public class DragTest : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             timelineManager.Snap(gameObject);
             IsSnapped = true;
+            manipulator.EffectTime = SnappedAt;
         }
         else
         {
