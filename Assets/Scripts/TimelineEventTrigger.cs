@@ -5,6 +5,8 @@ public class TimelineEventTrigger : MonoBehaviour
     public float TriggerTime;
     public UnityEngine.Events.UnityEvent OnTriggered;
 
+    public Color EventDisplayColor = Color.white;
+
     void Start()
     {
         TimeLine.AddTimelineEvent(this);

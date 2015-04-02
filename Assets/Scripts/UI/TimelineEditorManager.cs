@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TimelineEditorManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class TimelineEditorManager : MonoBehaviour
 
         GameObject eventDisplay = Instantiate(EventDisplayPrefab, position, Quaternion.identity) as GameObject;
         eventDisplay.transform.SetParent(transform);
+        eventDisplay.GetComponent<Image>().color = eventTrigger.EventDisplayColor;
     }
 
     private Vector3 calculatePosition(float triggerTime)
@@ -85,6 +87,6 @@ public class TimelineEditorManager : MonoBehaviour
 
         // Call snap event callback
         float snaptime = snap * TimePerSnap;
-        gameObject.BroadcastMessage("OnSnapped", snaptime);
+        eventObject.BroadcastMessage("OnSnapped", snaptime);
     }
 }

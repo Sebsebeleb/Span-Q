@@ -7,6 +7,7 @@ public class TimelineManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0f;
         levelManager = GameObject.FindWithTag("GameLevel").GetComponent<GameLevelManager>();
     }
 
@@ -34,6 +35,7 @@ public class TimelineManager : MonoBehaviour
 
     private void StartSimulating()
     {
+        TimeLine.StartPlayback();
         GameObject.FindWithTag("TimelineManager").BroadcastMessage("OnSimulationStart");
     }
 

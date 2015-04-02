@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class NextLevelLoader : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class NextLevelLoader : MonoBehaviour
 
     public void LoadNext()
     {
-        Application.LoadLevel(Application.loadedLevel+1);
+        Application.LoadLevel(Application.loadedLevel + 1);
+        TimeLine.Reset();
     }
 }

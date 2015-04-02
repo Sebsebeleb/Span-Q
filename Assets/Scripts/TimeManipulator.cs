@@ -1,5 +1,12 @@
 ﻿using UnityEngine;
 
+public enum ManipulatorType
+{
+    Jumper, // Jumps in time
+    Reverser,
+    Scaler,
+}
+
 [RequireComponent(typeof(DragTest))]
 /// <summary>
 /// Denotes an action in a point of time which when reached will manipulate the time.
@@ -9,9 +16,13 @@ public abstract class TimeManipulator : MonoBehaviour
     private DragTest drag;
     public float EffectTime;
 
-    private void Start()
+    private void Awake()
     {
         drag = GetComponent<DragTest>();
+    }
+
+    private void Start()
+    {
     }
 
     public abstract void OnReached();

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public static class TimeLine
 {
-    public static float EndTime;
-    public static float StartTime;
 
     private static float _currentCurrentTime;
 
@@ -21,14 +19,16 @@ public static class TimeLine
     /// Events that are raised as part of the timeline reaching the point
     public static List<KeyValuePair<float, TimelineEventTrigger>> TimelineEvents = new List<KeyValuePair<float, TimelineEventTrigger>>();
 
-    static void StartPlayback()
+    public static void StartPlayback()
     {
-        _currentCurrentTime = StartTime;
+        Time.timeScale = 1f;
+        _currentCurrentTime = 0;
     }
 
     // TODO: Call me maybe
     public static void StopPlayback()
     {
+        Time.timeScale = 0f;
         TimelineEvents.Clear();
         TimemanipulatorEvents.Clear();
     }
@@ -171,5 +171,15 @@ public static class TimeLine
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Reset all to default, for loading new levels
+    /// </summary>
+    public static void Reset()
+    {
+        TimemanipulatorEvents.Clear();
+        TimelineEvents.Clear();
+        CurrentTime = 0;
     }
 }
