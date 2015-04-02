@@ -20,5 +20,6 @@ public class TimelineManager : MonoBehaviour
     public void SetSimulating(bool b)
     {
         IsSimulating = b;
+        GameObject.FindWithTag("TimelineSystem").BroadcastMessage("OnSimulationStart");
     }
 }

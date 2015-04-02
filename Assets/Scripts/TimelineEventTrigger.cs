@@ -8,6 +8,7 @@ public class TimelineEventTrigger : MonoBehaviour
     void Start()
     {
         TimeLine.AddTimelineEvent(this);
+        GameObject.FindWithTag("TimelineManager").GetComponent<TimelineEditorManager>().RegisterTimelineEvent(this);
     }
 
     public void Trigger()

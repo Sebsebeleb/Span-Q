@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
+﻿
 public class TimeJumpManipulatorcs : TimeManipulator
 {
 
@@ -10,4 +8,5 @@ public class TimeJumpManipulatorcs : TimeManipulator
     {
         TimeLine.CurrentTime = TimeLine.CurrentTime + JumpTime;
     }
+
 }
