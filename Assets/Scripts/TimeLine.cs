@@ -61,7 +61,24 @@ public static class TimeLine
     /// <param name="timePassed"></param>
     private static void UpdateTime(float timePassed)
     {
+        CheckAndFireEvents(timePassed);
         CurrentTime += timePassed;
+
+    }
+
+    /// <summary>
+    /// Fires off all TimelineEvents that took place in the frame of time that passed
+    /// </summary>
+    /// <param name="timePassed"></param>
+    private static void CheckAndFireEvents(float timePassed)
+    {
+        foreach (KeyValuePair<float, TimelineEventTrigger> pair in TimelineEvents) {
+            float eventTime = pair.Key;
+
+            if (passedThisFrame(eventTime, timePassed)) {
+                pair.Value.Trigger();
+            }
+        }
     }
 
 
@@ -78,7 +95,7 @@ public static class TimeLine
         {
 
             float eventTime = pair.Key;
-            if (passedThisFrame(eventTime))
+            if (passedThisFrame(eventTime, deltaTime))
             {
                 earliestManipulator = pair;
                 found = true;
@@ -110,9 +127,9 @@ public static class TimeLine
     /// </summary>
     /// <param name="eventTime"></param>
     /// <returns></returns>
-    private static bool passedThisFrame(float eventTime)
+    private static bool passedThisFrame(float eventTime, float deltaTime)
     {
-        if (eventTime > _currentCurrentTime && _currentCurrentTime + Time.deltaTime > eventTime)
+        if (eventTime > _currentCurrentTime && _currentCurrentTime + deltaTime > eventTime)
         {
             return true;
         }
