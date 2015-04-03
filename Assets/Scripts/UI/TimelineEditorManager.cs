@@ -32,6 +32,7 @@ public class TimelineEditorManager : MonoBehaviour
         Vector3 position = calculatePosition(eventTrigger.TriggerTime);
 
         GameObject eventDisplay = Instantiate(EventDisplayPrefab, position, Quaternion.identity) as GameObject;
+        eventDisplay.GetComponentInChildren<Text>().text = string.Format("{0:F1}", eventTrigger.TriggerTime);
         eventDisplay.transform.SetParent(transform);
         eventDisplay.GetComponent<Image>().color = eventTrigger.EventDisplayColor;
     }
