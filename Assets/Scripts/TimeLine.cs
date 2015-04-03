@@ -46,10 +46,6 @@ public static class TimeLine
 
         while (deltaTime != 0f)
         {
-            if (deltaTime <= 0f)
-            {
-                throw new Exception("Error in manipulation of time. More time was spent than it was given to spend");
-            }
 
             float timePassed = UpdateToNextManipulator(deltaTime);
             UpdateTime(timePassed);
@@ -181,9 +177,18 @@ public static class TimeLine
     /// <returns></returns>
     private static bool passedThisFrame(float eventTime, float deltaTime)
     {
-        if (eventTime > _currentCurrentTime && _currentCurrentTime + deltaTime > eventTime)
+        if (_timescale > 0) {
+
+            if (eventTime > _currentCurrentTime && _currentCurrentTime + deltaTime > eventTime) {
+                return true;
+            }
+        }
+        else
         {
-            return true;
+            if (eventTime < _currentCurrentTime && _currentCurrentTime + deltaTime < eventTime) {
+                return true;
+            }
+            
         }
         return false;
     }
@@ -197,6 +202,7 @@ public static class TimeLine
         TimelineEvents.Clear();
         CurrentTime = 0;
         _timescale = 1f;
+        Physics2D.gravity =  new Vector2(0, -9.81f);
     }
 
     public static void SetTimeScale(float newScale)

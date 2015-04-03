@@ -5,6 +5,7 @@ public class PushPlayer : MonoBehaviour
     private Rigidbody2D playerBody;
 
     public Vector2 ForceToApply;
+    public bool InvertedofGravity = false;
 
     void Start()
     {
@@ -16,8 +17,16 @@ public class PushPlayer : MonoBehaviour
 
     public void ApplyPush()
     {
+        Vector2 actualForce = ForceToApply;
+        // Only cares about +/- y
+        if (InvertedofGravity) {
+            if (Physics2D.gravity.y > 0) {
+                actualForce.y *= -1;
+            }
+            
+        }
         playerBody = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
-        playerBody.AddForce(ForceToApply, ForceMode2D.Impulse);
+        playerBody.AddForce(actualForce, ForceMode2D.Impulse);
     }
 
 }
