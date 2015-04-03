@@ -19,6 +19,11 @@ public class DragTest : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // TODO: Disallow dragging while simulation is playing
     public void DragPosition(Vector3 dragPosition)
     {
+
+        if (TimeLine.IsSimulating) {
+            return;
+        }
+
         // We set it first because the snapping uses its position, and we need to override it in case of snap
         transform.position = dragPosition;
 

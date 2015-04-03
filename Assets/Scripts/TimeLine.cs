@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Mime;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,10 +25,13 @@ public static class TimeLine
     // The scale of how fast the timeline passes
     private static float _timescale = 1.0f;
 
+    public static bool IsSimulating = false;
+
     public static void StartPlayback()
     {
         Time.timeScale = 1f;
         _currentCurrentTime = 0;
+        IsSimulating = true;
     }
 
     // TODO: Call me maybe
@@ -203,6 +207,7 @@ public static class TimeLine
         CurrentTime = 0;
         _timescale = 1f;
         Physics2D.gravity =  new Vector2(0, -9.81f);
+        IsSimulating = false;
     }
 
     public static void SetTimeScale(float newScale)

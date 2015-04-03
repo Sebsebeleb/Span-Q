@@ -39,6 +39,12 @@ public class TimeScaleManipulator : TimeManipulator
 
     public void TrySetValue(string value)
     {
+        //DOnt allow input while simulating
+
+        if (TimeLine.IsSimulating) {
+            return;
+        }
+
         double realDouble;
         int realInt;
         bool successDouble = double.TryParse(value, out realDouble);
