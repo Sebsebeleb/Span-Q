@@ -32,8 +32,9 @@ public class TimeJumpManipulatorcs : TimeManipulator
     {
         if (JumpTimeText.text != JumpTime.ToString() && !JumpTimeInput.isFocused)
         {
-            JumpTimeInput.text = JumpTime.ToString();
-            JumpTimeText.text = JumpTime.ToString();
+            string text = String.Format("{0:F1}", JumpTime);
+            JumpTimeInput.text = text;
+            JumpTimeText.text = text;
         }
     }
 

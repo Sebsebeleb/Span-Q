@@ -32,8 +32,9 @@ public class TimeScaleManipulator : TimeManipulator
     {
         if (ScaleTimeText.text != TimeScale.ToString() && !ScaleTimeInput.isFocused)
         {
-            ScaleTimeInput.text = TimeScale.ToString();
-            ScaleTimeText.text = TimeScale.ToString();
+            string text = String.Format("{0:F1}", TimeScale);
+            ScaleTimeInput.text = text;
+            ScaleTimeText.text = text;
         }
     }
 
@@ -41,7 +42,8 @@ public class TimeScaleManipulator : TimeManipulator
     {
         //DOnt allow input while simulating
 
-        if (TimeLine.IsSimulating) {
+        if (TimeLine.IsSimulating)
+        {
             return;
         }
 

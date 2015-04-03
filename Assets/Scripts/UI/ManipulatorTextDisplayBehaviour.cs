@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(DragTest))]
@@ -18,10 +17,12 @@ public class ManipulatorTextDisplayBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!drag.IsSnapped) {
+        if (!drag.IsSnapped)
+        {
             snapText.text = "";
         }
-        else {
+        else
+        {
             snapText.text = string.Format("{0:F1}", drag.SnappedAt);
         }
 
