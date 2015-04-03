@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public enum ManipulatorType
 {
     Jumper, // Jumps in time
     Reverser,
     Scaler,
+}
+
+public enum ManipulatorUsageCount
+{
+    Single,
+    Unlimited,
+
 }
 
 [RequireComponent(typeof(DragTest))]
@@ -16,13 +24,19 @@ public abstract class TimeManipulator : MonoBehaviour
     private DragTest drag;
     public float EffectTime;
 
-    private void Awake()
+    public ManipulatorUsageCount UsageType = ManipulatorUsageCount.Single;
+
+    public void Awake()
     {
         drag = GetComponent<DragTest>();
     }
 
-    private void Start()
+    public void Start()
     {
+        if (UsageType == ManipulatorUsageCount.Single)
+        {
+            GetComponent<Image>().sprite = Resources.Load<Sprite>("TimelineManipulatorMarkerOneTime");
+        }
     }
 
     public abstract void OnReached();

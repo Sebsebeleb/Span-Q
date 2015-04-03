@@ -3,14 +3,14 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeJumpManipulatorcs : TimeManipulator
+public class TimeScaleManipulator : TimeManipulator
 {
-    public InputField JumpTimeInput;
-    public Text JumpTimeText;
+    public InputField ScaleTimeInput;
+    public Text ScaleTimeText;
     public Text MinValueText;
     public Text MaxValueText;
 
-    public float JumpTime;
+    public float TimeScale;
 
     public float MinValue;
     public float MaxValue;
@@ -20,20 +20,20 @@ public class TimeJumpManipulatorcs : TimeManipulator
         base.Start();
         MinValueText.text = MinValue.ToString();
         MaxValueText.text = MaxValue.ToString();
-        JumpTime = Mathf.Clamp(JumpTime, MinValue, MaxValue);
+        TimeScale = Mathf.Clamp(TimeScale, MinValue, MaxValue);
     }
 
     public override void OnReached()
     {
-        TimeLine.CurrentTime = TimeLine.CurrentTime + JumpTime;
+        TimeLine.SetTimeScale(TimeScale);
     }
 
     public void Update()
     {
-        if (JumpTimeText.text != JumpTime.ToString() && !JumpTimeInput.isFocused)
+        if (ScaleTimeText.text != TimeScale.ToString() && !ScaleTimeInput.isFocused)
         {
-            JumpTimeInput.text = JumpTime.ToString();
-            JumpTimeText.text = JumpTime.ToString();
+            ScaleTimeInput.text = TimeScale.ToString();
+            ScaleTimeText.text = TimeScale.ToString();
         }
     }
 
@@ -48,13 +48,13 @@ public class TimeJumpManipulatorcs : TimeManipulator
         {
             if (successDouble)
             {
-                JumpTime = Mathf.Clamp((float)realDouble, MinValue, MaxValue);
+                TimeScale = Mathf.Clamp((float)realDouble, MinValue, MaxValue);
                 // Round it to 1 decimal
-                JumpTime = (float)Math.Round(JumpTime, 1);
+                TimeScale = (float)Math.Round(TimeScale, 1);
             }
             if (successInt)
             {
-                JumpTime = Mathf.Clamp(realInt, MinValue, MaxValue);
+                TimeScale = Mathf.Clamp(realInt, MinValue, MaxValue);
             }
         }
 

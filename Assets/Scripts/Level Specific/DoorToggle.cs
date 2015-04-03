@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DoorToggle : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class DoorToggle : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-            UpdateState();
+        UpdateState();
     }
 
     // Update is called once per frame
@@ -24,10 +23,12 @@ public class DoorToggle : MonoBehaviour
 
     private void UpdateState()
     {
-        if (IsActive) {
+        if (IsActive)
+        {
             ToggleOn(transform);
         }
-        else {
+        else
+        {
             ToggleOff(transform);
         }
     }

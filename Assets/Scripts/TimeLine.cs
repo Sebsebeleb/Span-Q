@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class TimeLine
 {
@@ -19,6 +21,9 @@ public static class TimeLine
     /// Events that are raised as part of the timeline reaching the point
     public static List<KeyValuePair<float, TimelineEventTrigger>> TimelineEvents = new List<KeyValuePair<float, TimelineEventTrigger>>();
 
+    // The scale of how fast the timeline passes
+    private static float _timescale = 1.0f;
+
     public static void StartPlayback()
     {
         Time.timeScale = 1f;
@@ -31,12 +36,13 @@ public static class TimeLine
         Time.timeScale = 0f;
         TimelineEvents.Clear();
         TimemanipulatorEvents.Clear();
+        Reset();
     }
 
     public static void SimulateTime()
     {
 
-        float deltaTime = Time.deltaTime;
+        float deltaTime = Time.deltaTime * _timescale;
 
         while (deltaTime != 0f)
         {
@@ -157,6 +163,15 @@ public static class TimeLine
     private static void TriggerManipulator(TimeManipulator timeManipulator)
     {
         timeManipulator.OnReached();
+        if (timeManipulator.UsageType == ManipulatorUsageCount.Single) {
+            RemoveTimelineManipulator(timeManipulator);
+
+            //Update its display color
+            Image im = timeManipulator.GetComponent<Image>();
+            Color nColor = im.color;
+            nColor.a = 0.1f;
+            im.color = nColor;
+        }
     }
 
     /// <summary>
@@ -181,5 +196,11 @@ public static class TimeLine
         TimemanipulatorEvents.Clear();
         TimelineEvents.Clear();
         CurrentTime = 0;
+        _timescale = 1f;
+    }
+
+    public static void SetTimeScale(float newScale)
+    {
+        _timescale = newScale;
     }
 }
